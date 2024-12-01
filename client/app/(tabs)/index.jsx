@@ -7,6 +7,8 @@ import { supabase } from "../../utils/SupaBaseConfig";
 import colors from "../../utils/colors";
 import services from "../../utils/services";
 
+import Ionicons from "@expo/vector-icons/Ionicons";
+
 import CircularChart from "../../components/CircularChart.jsx";
 import Header from "../../components/Header";
 
@@ -62,9 +64,14 @@ export default function Home() {
   };
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <CircularChart/>
+    <View style={{ flex: 1, position: "relative" }}>
+      <View style={styles.container}>
+        <Header />
+        <CircularChart />
+      </View>
+      <Link href={"/add-new-category"} style={styles.addBtnContainer}>
+        <Ionicons name="add-circle-sharp" size={65} color={colors.PRIMARY} />
+      </Link>
     </View>
   );
 }
@@ -73,8 +80,13 @@ const styles = StyleSheet.create({
   container: {
     // marginTop: 20,
     padding: 25,
-    paddingTop:35,
     backgroundColor: colors.PRIMARY,
     height: 150,
+  },
+  addBtnContainer: {
+    position: "absolute",
+    bottom: 16,
+    right: 16,
+    zIndex: 10,
   },
 });
