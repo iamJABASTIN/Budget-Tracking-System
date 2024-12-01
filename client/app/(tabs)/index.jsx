@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View, Button } from "react-native";
 import React, { useEffect, useState } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "./../../configs/FirebaseConfig.jsx";
 import { Link, useRouter } from "expo-router";
 import { supabase } from "../../utils/SupaBaseConfig";
 import colors from "../../utils/colors";
-import { auth } from "./../../configs/FirebaseConfig.jsx";
-import { signOut } from "firebase/auth";
-
-import Header from "../../components/Header";
 import services from "../../utils/services";
+
+import CircularChart from "../../components/CircularChart.jsx";
+import Header from "../../components/Header";
 
 export default function Home() {
   const router = useRouter();
@@ -63,6 +64,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Header />
+      <CircularChart/>
     </View>
   );
 }
