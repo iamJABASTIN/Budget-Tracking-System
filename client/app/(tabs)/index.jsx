@@ -1,14 +1,19 @@
 import { StyleSheet, Text, View, Button } from "react-native";
 import React, { useEffect } from "react";
 import { Link, useRouter } from "expo-router";
+import { supabase } from "./../../utils/SupaBaseConfig";
 import services from "./../../utils/services";
 import { client } from "./../../utils/KindConfig";
+import colors from "./../../utils/colors";
+
+import Header from "../../components/Header";
 
 export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
     checkUserAuth();
+    getCategoryList();
   }, []);
 
   //Used to check User is already auth or not
@@ -29,9 +34,20 @@ export default function Home() {
     }
   };
 
+  const getCategoryList = async () => {
+    const user = await client.getUserDetails();
+    const { data, error } = await supabase
+      .from("category")
+      .select("*")
+      .eq("created_by", user.email);
+
+    console.log(user.email);
+    console.log("Data", data);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Hola world</Text>
+      <Header />
       <Button onPress={handleLogout} title="Logout"></Button>
     </View>
   );
@@ -39,22 +55,9 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 24,
-  },
-  main: {
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
-  },
-  title: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
+    marginTop: 20,
+    padding: 20,
+    backgroundColor: colors.PRIMARY,
+    height: 150,
   },
 });
