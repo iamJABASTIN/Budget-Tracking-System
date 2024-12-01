@@ -1,21 +1,11 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
-import loginBG from "../../assets/images/illu_removedBG-min.png";
-import colors from "../../utils/colors";
-import { client } from "../../utils/KindConfig";
-import services from "../../utils/services";
+import loginBG from './../assets/images/illu_removedBG-min.png';
+import colors from "./../utils/colors";
 import { useRouter } from "expo-router";
 
-export default function loginScreen() {
+export default function Login() {
   const router = useRouter();
-  const handleSignIn = async () => {
-    const token = await client.login();
-    if (token) {
-      await services.storeData("login", "true");
-      router.replace("/");
-    }
-  };
-
   return (
     <View
       style={{
@@ -30,8 +20,8 @@ export default function loginScreen() {
         <Text style={styles.textSubHeading}>
           Every Expense Counts, Every Savings Matter.
         </Text>
-        <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-          <Text style={styles.btnText}>Login / Signup</Text>
+        <TouchableOpacity style={styles.button} onPress={()=> router.push('auth/sign-in')}>
+          <Text style={styles.btnText}>Get Started</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -57,12 +47,13 @@ const styles = StyleSheet.create({
   },
   textHeading: {
     fontSize: 35,
-    fontWeight: "bold",
+    fontFamily:'Montserrat-bold',
     textAlign: "center",
     color: colors.WHITE1,
   },
   textSubHeading: {
-    fontSize: 18,
+    fontSize: 16,
+    fontFamily:'Montserrat',
     color: colors.WHITE1,
     textAlign: "center",
     marginTop: 20,
@@ -81,6 +72,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     textAlign: "center",
+    fontFamily:'Montserrat',
     fontWeight: 600,
     fontSize: 15,
     color: colors.PRIMARY,

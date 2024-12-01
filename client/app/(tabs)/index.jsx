@@ -1,22 +1,20 @@
 import { StyleSheet, Text, View, Button } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useRouter } from "expo-router";
-import { supabase } from "./../../utils/SupaBaseConfig";
-import services from "./../../utils/services";
-import { client } from "./../../utils/KindConfig";
-import colors from "./../../utils/colors";
+import { supabase } from "../../utils/SupaBaseConfig";
+import colors from "../../utils/colors";
+import { auth } from "./../../configs/FirebaseConfig.jsx";
+import { signOut } from "firebase/auth";
 
 import Header from "../../components/Header";
+import services from "../../utils/services";
 
 export default function Home() {
   const router = useRouter();
-
   useEffect(() => {
     checkUserAuth();
     getCategoryList();
   }, []);
-
-  //Used to check User is already auth or not
 
   const checkUserAuth = async () => {
     const result = await services.getData("login");
@@ -26,37 +24,54 @@ export default function Home() {
   };
 
   const handleLogout = async () => {
-    const loggedOut = await client.logout();
-    if (loggedOut) {
-      await services.storeData("login", "false");
-      router.replace("/login");
-      // User was logged out
+    try {
+      // Call Firebase's signOut function
+      await signOut(auth);
+
+      // Perform additional cleanup or actions
+      await services.storeData("login", "false"); // Storing the logged-out state
+      const router = useRouter(); // Initialize the router
+      router.replace("/login"); // Redirect to the login page
+      console.log("User logged out successfully.");
+    } catch (error) {
+      console.error("Error logging out:", error.message);
     }
   };
 
   const getCategoryList = async () => {
-    const user = await client.getUserDetails();
-    const { data, error } = await supabase
-      .from("category")
-      .select("*")
-      .eq("created_by", user.email);
+    try {
+      const user = auth.currentUser;
+      if (!user || !user.email) {
+        console.error("User not authenticated or email missing");
+        return;
+      }
+      const { data, error } = await supabase
+        .from("category")
+        .select("*")
+        .eq("created_by", user.email);
 
-    console.log(user.email);
-    console.log("Data", data);
+      if (error) {
+        console.error("Supabase error:", error.message);
+        return;
+      }
+      console.log("Category Data:", data);
+    } catch (error) {
+      console.error("Error fetching category list:", error.message);
+    }
   };
 
   return (
     <View style={styles.container}>
       <Header />
-      <Button onPress={handleLogout} title="Logout"></Button>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    padding: 20,
+    // marginTop: 20,
+    padding: 25,
+    paddingTop:35,
     backgroundColor: colors.PRIMARY,
     height: 150,
   },
