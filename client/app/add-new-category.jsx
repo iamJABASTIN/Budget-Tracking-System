@@ -13,12 +13,15 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { supabase } from "../utils/SupaBaseConfig";
 import { auth } from "../configs/FirebaseConfig";
+import { useRouter } from "expo-router";
 
 export default function addNewCategory() {
   const [selectedIcon, setSelectedIcon] = useState("😉");
   const [selectedColor, setSelectedColor] = useState(colors.PRIMARY);
   const [categoryName, setCategoryName] = useState();
   const [totalBudget, setTotalBudget] = useState();
+
+  const router = useRouter();
 
   const onCreateCategory = async () => {
     try {
@@ -50,9 +53,16 @@ export default function addNewCategory() {
         ToastAndroid.show("Error creating category", ToastAndroid.SHORT);
         return;
       }
-
-      console.log("Category Data:", data);
-      ToastAndroid.show("Category Created!", ToastAndroid.SHORT);
+      if(data) {
+        console.log("Category Data:", data);
+        router.replace({
+          pathname:'/category-details',
+          params:{
+            categoryId:data[0].id
+          }
+        })
+        ToastAndroid.show("Category Created!", ToastAndroid.SHORT);
+      }
     } catch (error) {
       console.error("Unexpected error:", error.message);
     }

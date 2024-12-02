@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "./../../configs/FirebaseConfig.jsx";
@@ -11,9 +18,12 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import CircularChart from "../../components/CircularChart.jsx";
 import Header from "../../components/Header";
+import CategoryList from "../../components/CategoryList.jsx";
 
 export default function Home() {
   const router = useRouter();
+  const [categoryList, setcategoryList] = useState();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     checkUserAuth();
     getCategoryList();
@@ -43,6 +53,7 @@ export default function Home() {
 
   const getCategoryList = async () => {
     try {
+      setLoading(true)
       const user = auth.currentUser;
       if (!user || !user.email) {
         console.error("User not authenticated or email missing");
@@ -50,7 +61,7 @@ export default function Home() {
       }
       const { data, error } = await supabase
         .from("category")
-        .select("*")
+        .select("*,categoryItems(*)")
         .eq("created_by", user.email);
 
       if (error) {
@@ -58,6 +69,8 @@ export default function Home() {
         return;
       }
       console.log("Category Data:", data);
+      setcategoryList(data);
+      data&&setLoading(false)
     } catch (error) {
       console.error("Error fetching category list:", error.message);
     }
@@ -65,10 +78,22 @@ export default function Home() {
 
   return (
     <View style={{ flex: 1, position: "relative" }}>
-      <View style={styles.container}>
-        <Header />
-        <CircularChart />
-      </View>
+      <ScrollView
+        refreshControl={<RefreshControl onRefresh={() => getCategoryList()} refreshing={loading}/>}
+      >
+        <View style={styles.container}>
+          <Header />
+        </View>
+        <View
+          style={{
+            padding: 20,
+            marginTop: -120,
+          }}
+        >
+          <CircularChart />
+          <CategoryList categoryList={categoryList} />
+        </View>
+      </ScrollView>
       <Link href={"/add-new-category"} style={styles.addBtnContainer}>
         <Ionicons name="add-circle-sharp" size={65} color={colors.PRIMARY} />
       </Link>
@@ -81,7 +106,7 @@ const styles = StyleSheet.create({
     // marginTop: 20,
     padding: 25,
     backgroundColor: colors.PRIMARY,
-    height: 150,
+    height: 200,
   },
   addBtnContainer: {
     position: "absolute",
