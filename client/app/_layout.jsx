@@ -4,7 +4,7 @@ import { useFonts } from "expo-font";
 
 export default function RootLayout() {
   useFonts({
-    Montserrat: require("./../assets/fonts/Montserrat-Regular.ttf"),
+    "Montserrat": require("./../assets/fonts/Montserrat-Regular.ttf"),
     "Montserrat-medium": require("./../assets/fonts/Montserrat-Medium.ttf"),
     "Montserrat-bold": require("./../assets/fonts/Montserrat-Bold.ttf"),
   });

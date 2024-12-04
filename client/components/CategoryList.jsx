@@ -51,7 +51,7 @@ export default function CategoryList({ categoryList }) {
                     {category?.categoryItems?.length} Items
                   </Text>
                 </View>
-                <Text style={styles.totalAmountText}>$ 5000</Text>
+                <Text style={styles.totalAmountText}>$ {category.assign_budget}</Text>
               </View>
             </TouchableOpacity>
           ))}

@@ -53,14 +53,14 @@ export default function addNewCategory() {
         ToastAndroid.show("Error creating category", ToastAndroid.SHORT);
         return;
       }
-      if(data) {
+      if (data) {
         console.log("Category Data:", data);
         router.replace({
-          pathname:'/category-details',
-          params:{
-            categoryId:data[0].id
-          }
-        })
+          pathname: "/category-details",
+          params: {
+            categoryId: data[0].id,
+          },
+        });
         ToastAndroid.show("Category Created!", ToastAndroid.SHORT);
       }
     } catch (error) {
