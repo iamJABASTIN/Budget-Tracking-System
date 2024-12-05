@@ -9,8 +9,8 @@ export default function CourseItemList({ categoryData }) {
       <View style={{ marginTop: 15 }}>
         {categoryData?.categoryItems?.length > 0 ? (
           categoryData?.categoryItems?.map((item, index) => (
-            <>
-              <View key={index} style={styles.itemContainer}>
+            <View key={index}>
+              <View style={styles.itemContainer}>
                 <Image
                   source={{ uri: item.image }}
                   style={styles.image}
@@ -30,7 +30,7 @@ export default function CourseItemList({ categoryData }) {
                   }}
                 ></View>
               )}
-            </>
+            </View>
           ))
         ) : (
           <Text style={styles.noItemFound}>No Item Found</Text>

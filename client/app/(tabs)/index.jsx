@@ -32,7 +32,7 @@ export default function Home() {
   const checkUserAuth = async () => {
     const result = await services.getData("login");
     if (result !== "true") {
-      router.replace("/login");
+      router.replace("../../components/Login.jsx");
     }
   };
 
@@ -44,7 +44,7 @@ export default function Home() {
       // Perform additional cleanup or actions
       await services.storeData("login", "false"); // Storing the logged-out state
       const router = useRouter(); // Initialize the router
-      router.replace("/login"); // Redirect to the login page
+      router.replace("../../components/Login.jsx"); // Redirect to the login page
       console.log("User logged out successfully.");
     } catch (error) {
       console.error("Error logging out:", error.message);

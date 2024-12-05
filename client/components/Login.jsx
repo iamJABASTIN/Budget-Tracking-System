@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   },
   textSubHeading: {
     fontSize: 16,
+    paddingInline:'20',
     fontFamily:'Montserrat',
     color: colors.WHITE1,
     textAlign: "center",

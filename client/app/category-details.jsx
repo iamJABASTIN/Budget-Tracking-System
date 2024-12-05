@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { supabase } from "../utils/SupaBaseConfig";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import CourseInfo from "../components/category details/CourseInfo";
 import CourseItemList from "../components/category details/CourseItemList";
+import colors from "../utils/colors";
 
 export default function CategoryDetails() {
   const { categoryId } = useLocalSearchParams();
@@ -28,6 +29,8 @@ export default function CategoryDetails() {
       style={{
         padding: 20,
         marginTop: 5,
+        position:'relative',
+        flex:1
       }}
     >
       <TouchableOpacity
@@ -38,6 +41,16 @@ export default function CategoryDetails() {
       </TouchableOpacity>
       <CourseInfo categoryData={categoryData}></CourseInfo>
       <CourseItemList categoryData={categoryData} />
+      <Link 
+      href={{
+        pathname:'/add-new-category-item',
+        params:{
+          categoryId:categoryData.id
+        }
+      }}
+      style={styles.floatingBtn}>
+        <Ionicons name="add-circle-sharp" size={60} color={colors.PRIMARY} />
+      </Link>
     </View>
   );
 }
@@ -46,4 +59,9 @@ const styles = StyleSheet.create({
   textIcon: {
     fontSize: 20,
   },
+  floatingBtn : {
+    position:'absolute',
+    bottom:16,
+    right:16
+  }
 });
