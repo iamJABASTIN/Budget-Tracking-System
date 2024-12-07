@@ -4,16 +4,16 @@ import colors from "../utils/colors";
 import { useRouter } from "expo-router";
 
 export default function CategoryList({ categoryList }) {
-    const router = useRouter();
+  const router = useRouter();
 
-    const onCategoryClick = (category) => {
-        router.push({
-            pathname:'/category-details',
-            params:{
-                categoryId : category.id
-            }
-        })
-    }
+  const onCategoryClick = (category) => {
+    router.push({
+      pathname: "/category-details",
+      params: {
+        categoryId: category.id,
+      },
+    });
+  };
 
   return (
     <View
@@ -33,7 +33,11 @@ export default function CategoryList({ categoryList }) {
       <View>
         {categoryList &&
           categoryList?.map((category, index) => (
-            <TouchableOpacity key={index} style={styles.container} onPress={()=>onCategoryClick(category)}>
+            <TouchableOpacity
+              key={index}
+              style={styles.container}
+              onPress={() => onCategoryClick(category)}
+            >
               <View style={styles.iconContainer}>
                 <Text
                   style={[
@@ -51,7 +55,9 @@ export default function CategoryList({ categoryList }) {
                     {category?.categoryItems?.length} Items
                   </Text>
                 </View>
-                <Text style={styles.totalAmountText}>$ {category.assign_budget}</Text>
+                <Text style={styles.totalAmountText}>
+                  $ {category.assign_budget}
+                </Text>
               </View>
             </TouchableOpacity>
           ))}

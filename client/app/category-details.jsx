@@ -29,8 +29,9 @@ export default function CategoryDetails() {
       style={{
         padding: 20,
         marginTop: 5,
-        position:'relative',
-        flex:1
+        position: "relative",
+        flex: 1,
+        backgroundColor: colors.WHITE1,
       }}
     >
       <TouchableOpacity
@@ -41,14 +42,15 @@ export default function CategoryDetails() {
       </TouchableOpacity>
       <CourseInfo categoryData={categoryData}></CourseInfo>
       <CourseItemList categoryData={categoryData} />
-      <Link 
-      href={{
-        pathname:'/add-new-category-item',
-        params:{
-          categoryId:categoryData.id
-        }
-      }}
-      style={styles.floatingBtn}>
+      <Link
+        href={{
+          pathname: "/add-new-category-item",
+          params: {
+            categoryId: categoryData.id,
+          },
+        }}
+        style={styles.floatingBtn}
+      >
         <Ionicons name="add-circle-sharp" size={60} color={colors.PRIMARY} />
       </Link>
     </View>
@@ -59,9 +61,9 @@ const styles = StyleSheet.create({
   textIcon: {
     fontSize: 20,
   },
-  floatingBtn : {
-    position:'absolute',
-    bottom:16,
-    right:16
-  }
+  floatingBtn: {
+    position: "absolute",
+    bottom: 16,
+    right: 16,
+  },
 });
