@@ -53,7 +53,7 @@ export default function Home() {
 
   const getCategoryList = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const user = auth.currentUser;
       if (!user || !user.email) {
         console.error("User not authenticated or email missing");
@@ -70,7 +70,7 @@ export default function Home() {
       }
       console.log("Category Data:", data);
       setcategoryList(data);
-      data&&setLoading(false)
+      data && setLoading(false);
     } catch (error) {
       console.error("Error fetching category list:", error.message);
     }
@@ -79,7 +79,12 @@ export default function Home() {
   return (
     <View style={{ flex: 1, position: "relative" }}>
       <ScrollView
-        refreshControl={<RefreshControl onRefresh={() => getCategoryList()} refreshing={loading}/>}
+        refreshControl={
+          <RefreshControl
+            onRefresh={() => getCategoryList()}
+            refreshing={loading}
+          />
+        }
       >
         <View style={styles.container}>
           <Header />
@@ -90,7 +95,7 @@ export default function Home() {
             marginTop: -120,
           }}
         >
-          <CircularChart />
+          <CircularChart categoryList={categoryList} />
           <CategoryList categoryList={categoryList} />
         </View>
       </ScrollView>

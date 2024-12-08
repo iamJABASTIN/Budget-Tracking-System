@@ -15,6 +15,14 @@ export default function CategoryList({ categoryList }) {
     });
   };
 
+  const calculateTotalCost = (categoryItems) => {
+    let totalCost = 0;
+    categoryItems.forEach(item => {
+      totalCost = totalCost + item.cost
+    });
+    return totalCost;
+  }
+
   return (
     <View
       style={{
@@ -56,7 +64,7 @@ export default function CategoryList({ categoryList }) {
                   </Text>
                 </View>
                 <Text style={styles.totalAmountText}>
-                  $ {category.assign_budget}
+                  $ {calculateTotalCost(category?.categoryItems)}
                 </Text>
               </View>
             </TouchableOpacity>
