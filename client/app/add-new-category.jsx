@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ToastAndroid,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import colors from "../utils/colors";
@@ -20,10 +21,11 @@ export default function addNewCategory() {
   const [selectedColor, setSelectedColor] = useState(colors.PRIMARY);
   const [categoryName, setCategoryName] = useState();
   const [totalBudget, setTotalBudget] = useState();
-
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const onCreateCategory = async () => {
+    setLoading(true);
     try {
       const user = auth.currentUser;
       if (!user || !user.email) {
@@ -51,6 +53,7 @@ export default function addNewCategory() {
       if (error) {
         console.error("Error creating category:", error.message);
         ToastAndroid.show("Error creating category", ToastAndroid.SHORT);
+        setLoading(fasle);
         return;
       }
       if (data) {
@@ -61,6 +64,7 @@ export default function addNewCategory() {
             categoryId: data[0].id,
           },
         });
+        setLoading(false);
         ToastAndroid.show("Category Created!", ToastAndroid.SHORT);
       }
     } catch (error) {
@@ -128,10 +132,14 @@ export default function addNewCategory() {
 
       <TouchableOpacity
         style={styles.btn}
-        disabled={!categoryName || !totalBudget}
+        disabled={!categoryName || !totalBudget || loading}
         onPress={() => onCreateCategory()}
       >
-        <Text style={styles.btnText}>Create</Text>
+        {loading ? (
+          <ActivityIndicator color={colors.WHITE1} />
+        ) : (
+          <Text style={styles.btnText}>Create</Text>
+        )}
       </TouchableOpacity>
     </View>
   );

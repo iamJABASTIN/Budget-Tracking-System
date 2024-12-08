@@ -8,6 +8,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   ToastAndroid,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import colors from "../utils/colors";
@@ -28,6 +29,7 @@ export default function AddNewCategoryItem() {
   const [cost, setCost] = useState("");
   const [URL, setURL] = useState("");
   const [note, setNote] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const onImagePick = async () => {
@@ -86,6 +88,7 @@ export default function AddNewCategoryItem() {
   // };
 
   const onClickAdd = async () => {
+    setLoading(true);
     const fileName = Date.now();
     // Remove base64 prefix if present
     const base64Image = image.startsWith("data:image/")
@@ -114,7 +117,7 @@ export default function AddNewCategoryItem() {
           category_id: categoryId,
         },
       ]);
-
+      setLoading(false);
       if (!error) {
         ToastAndroid.show("New Item Added!!", ToastAndroid.SHORT);
         router.push({
@@ -175,9 +178,13 @@ export default function AddNewCategoryItem() {
         <TouchableOpacity
           style={styles.addButton}
           onPress={() => onClickAdd()}
-          disabled={!name || !cost}
+          disabled={!name || !cost || loading}
         >
-          <Text style={styles.addButtonText}>Add Item</Text>
+          {loading ? (
+            <ActivityIndicator color={colors.WHITE1} />
+          ) : (
+            <Text style={styles.addButtonText}>Add Item</Text>
+          )}
         </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>
