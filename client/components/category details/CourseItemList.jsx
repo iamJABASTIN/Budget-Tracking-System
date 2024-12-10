@@ -1,8 +1,34 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ToastAndroid,
+  Linking,
+} from "react-native";
+import React, { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
 import colors from "../../utils/colors";
+import { supabase } from "../../utils/SupaBaseConfig";
 
-export default function CourseItemList({ categoryData }) {
+export default function CourseItemList({ categoryData, setUpdateRecord }) {
+  const [expandItem, setExpandItem] = useState();
+
+  const onDeleteItem = async (id) => {
+    const { error } = await supabase
+      .from("categoryItems")
+      .delete()
+      .eq("id", id);
+    ToastAndroid.show("Item Deleted!", ToastAndroid.SHORT);
+    setUpdateRecord(true);
+  };
+
+  const openURL = (url) => {
+    if (url) {
+      Linking.openURL(url);
+    }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Item List</Text>
@@ -10,7 +36,10 @@ export default function CourseItemList({ categoryData }) {
         {categoryData?.categoryItems?.length > 0 ? (
           categoryData?.categoryItems?.map((item, index) => (
             <View key={index}>
-              <View style={styles.itemContainer}>
+              <TouchableOpacity
+                style={styles.itemContainer}
+                onPress={() => setExpandItem(index)}
+              >
                 <Image
                   source={{ uri: item.image }}
                   style={styles.image}
@@ -19,8 +48,22 @@ export default function CourseItemList({ categoryData }) {
                   <Text style={styles.name}>{item.name}</Text>
                   <Text style={styles.url}>{item.url}</Text>
                 </View>
-                <Text style={styles.cost}>{item.cost}</Text>
-              </View>
+                <Text style={styles.cost}>$ {item.cost}</Text>
+              </TouchableOpacity>
+              {expandItem == index && (
+                <View style={styles.actionItemContainer}>
+                  <TouchableOpacity onPress={() => onDeleteItem(item.id)}>
+                    <Ionicons name="trash" size={24} color="red" />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => openURL(item.url)}>
+                    <Ionicons
+                      name="link-sharp"
+                      size={24}
+                      color={colors.SECONDARY}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
               {categoryData?.categoryItems?.length - 1 != index && (
                 <View
                   style={{
@@ -77,5 +120,12 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat-bold",
     fontSize: 20,
     color: colors.WHITE2,
+  },
+  actionItemContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 15,
+    justifyContent: "flex-end",
+    marginTop: -25,
   },
 });
