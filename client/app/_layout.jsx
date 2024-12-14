@@ -28,6 +28,14 @@ export default function RootLayout() {
           headerTitle: "Add New Item",
         }}
       />
+      <Stack.Screen
+        name="add-income-expense"
+        options={{
+          presentation: "modal",
+          headerShown: true,
+          headerTitle: "Add Income/Expense",
+        }}
+      />
     </Stack>
   );
 }

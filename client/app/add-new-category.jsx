@@ -118,7 +118,7 @@ export default function addNewCategory() {
       </View>
 
       <View style={styles.inputView}>
-        <FontAwesome name="dollar" size={24} color={colors.WHITE2} />
+        <FontAwesome name="rupee" size={24} color={colors.WHITE2} />
         <TextInput
           placeholder="Total Budget"
           onChangeText={(value) => setTotalBudget(value)}

@@ -1,41 +1,53 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import colors from "../../utils/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import Header from "../../components/Header";
-import Expense from "../../components/Expense";
-import ExpenseBlock from "../../components/ExpenseBlock";
+import MoneyStatus from "../../components/MoneyStatus";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function index() {
   const router = useRouter();
   return (
-    <View>
+    <View style={styles.screen}>
       <SafeAreaView style={styles.safeArea}>
         <Header />
       </SafeAreaView>
-      <View style={styles.conatiner}>
-        <Text style={{ fontFamily: "Montserrat", fontSize: 18 }}>
-          My <Text style={{ fontFamily: "Montserrat-bold" }}>Expense</Text>
-        </Text>
-        <Expense />
-        <ExpenseBlock />
+      <View style={styles.container}>
+        <MoneyStatus />
+        <Link href={"/add-income-expense"} style={styles.addBtnContainer}>
+          <Ionicons name="add-circle-sharp" size={65} color={colors.PRIMARY} />
+        </Link>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1, // Ensures the root container takes up full screen height
+    backgroundColor: colors.WHITE1, // Full-screen white background
+  },
   safeArea: {
     paddingHorizontal: 20,
     paddingVertical: 30,
     backgroundColor: colors.PRIMARY,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
+    zIndex: 1,
   },
-  conatiner: {
+  container: {
+    flex: 1, // Ensures the container fills remaining space after SafeAreaView
     padding: 20,
-    display: "flex",
-    backgroundColor: colors.WHITE1,
+    backgroundColor: colors.WHITE1, // Explicit white background
+    borderTopLeftRadius: 25, // Optional: Match radius for visual consistency
+    borderTopRightRadius: 25, // Optional: Match radius for visual consistency
+  },
+  addBtnContainer: {
+    position: "absolute",
+    bottom: 16,
+    right: 16,
+    zIndex: 10,
   },
 });

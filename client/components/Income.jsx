@@ -18,7 +18,7 @@ import colors from "../utils/colors";
 import { useRouter } from "expo-router";
 import DateTimePicker from "@react-native-community/datetimepicker"; // Importing DateTimePicker
 
-export default function Expense() {
+export default function Income() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
@@ -30,6 +30,7 @@ export default function Expense() {
 
   const onClickAdd = async () => {
     setLoading(true);
+
     setLoading(false);
   };
 
@@ -63,7 +64,7 @@ export default function Expense() {
             color={colors.WHITE2}
           />
           <TextInput
-            placeholder="Expense name"
+            placeholder="Income name"
             placeholderTextColor={colors.WHITE2}
             style={styles.input}
             onChangeText={(value) => setName(value)}
@@ -114,9 +115,9 @@ export default function Expense() {
           disabled={!name || !amount || !date || !category || loading}
         >
           {loading ? (
-            <ActivityIndicator color={colors.RED} />
+            <ActivityIndicator color={colors.GREEN} />
           ) : (
-            <Text style={styles.addButtonText}>Add Expense</Text>
+            <Text style={styles.addButtonText}>Add Income</Text>
           )}
         </TouchableOpacity>
       </ScrollView>
@@ -153,13 +154,13 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginTop: 20,
     borderWidth: 1,
-    borderColor: colors.RED,
+    borderColor: colors.GREEN,
   },
   addButtonText: {
     textAlign: "center",
     fontFamily: "Montserrat-bold",
     fontSize: 20,
-    color: colors.RED,
+    color: colors.GREEN,
   },
   datePicker: {
     flex: 1,

@@ -5,5 +5,7 @@ export default {
   WHITE2: "#D3d3d3",
   PRIMARY: "#5465FF",
   SECONDARY: "#9BB1FF",
+  RED: '#FF4D4D',
+  GREEN: '#4CAF50',
   COLOR_LIST: ["#4575FE", "#13C38B", "#9F3CFE", "#9F3C3E", "#FF7D4F"],
 };
