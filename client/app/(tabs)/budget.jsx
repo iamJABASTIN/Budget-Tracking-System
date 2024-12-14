@@ -21,7 +21,7 @@ export default function Home() {
   useEffect(() => {
     checkUserAuth();
     getCategoryList();
-  }, []);
+  },[]);
 
   const checkUserAuth = async () => {
     const result = await services.getData("login");

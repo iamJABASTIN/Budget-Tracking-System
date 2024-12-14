@@ -17,20 +17,61 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import colors from "../utils/colors";
 import { useRouter } from "expo-router";
 import DateTimePicker from "@react-native-community/datetimepicker"; // Importing DateTimePicker
+import { auth } from "./../configs/FirebaseConfig";
+import { supabase } from "./../utils/SupaBaseConfig";
 
 export default function Expense() {
+  const [amount, setAmount] = useState("");
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
-  const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
-  const [loading, setLoading] = useState(false);
   const [date, setDate] = useState(new Date()); // Initialize date with current date
+  const [loading, setLoading] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false); // To control visibility of date picker
   const router = useRouter();
 
-  const onClickAdd = async () => {
+  const onCreateCategory = async () => {
     setLoading(true);
-    setLoading(false);
+    try {
+      const user = auth.currentUser;
+      if (!user || !user.email) {
+        console.error("User is not logged in or email is missing");
+        ToastAndroid.show(
+          "Please log in to create a category",
+          ToastAndroid.SHORT
+        );
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("expense")
+        .insert([
+          {
+            created_by: auth.currentUser.email,
+            amount: amount,
+            name: name,
+            category: category,
+            note: note,
+            date: date,
+          },
+        ])
+        .select();
+
+      if (error) {
+        console.error("Error creating expense:", error.message);
+        ToastAndroid.show("Error creating expense", ToastAndroid.SHORT);
+        setLoading(false);
+        return;
+      }
+      if (data) {
+        console.log("Expense Data:", data);
+        router.replace("/(tabs)");
+        setLoading(false);
+        ToastAndroid.show("Expense Added!", ToastAndroid.SHORT);
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error.message);
+    }
   };
 
   const onDateChange = (event, selectedDate) => {
@@ -110,7 +151,7 @@ export default function Expense() {
         {/* Add Button */}
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() => onClickAdd()}
+          onPress={() => onCreateCategory()}
           disabled={!name || !amount || !date || !category || loading}
         >
           {loading ? (

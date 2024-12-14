@@ -16,7 +16,9 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import colors from "../utils/colors";
 import { useRouter } from "expo-router";
-import DateTimePicker from "@react-native-community/datetimepicker"; // Importing DateTimePicker
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { auth } from "./../configs/FirebaseConfig";
+import { supabase } from "./../utils/SupaBaseConfig";
 
 export default function Income() {
   const [name, setName] = useState("");
@@ -28,10 +30,48 @@ export default function Income() {
   const [showDatePicker, setShowDatePicker] = useState(false); // To control visibility of date picker
   const router = useRouter();
 
-  const onClickAdd = async () => {
+  const onCreateCategory = async () => {
     setLoading(true);
+    try {
+      const user = auth.currentUser;
+      if (!user || !user.email) {
+        console.error("User is not logged in or email is missing");
+        ToastAndroid.show(
+          "Please log in to create a category",
+          ToastAndroid.SHORT
+        );
+        return;
+      }
 
-    setLoading(false);
+      const { data, error } = await supabase
+        .from("income")
+        .insert([
+          {
+            created_by: auth.currentUser.email,
+            amount: amount,
+            name: name,
+            category: category,
+            note: note,
+            date: date,
+          },
+        ])
+        .select();
+
+      if (error) {
+        console.error("Error creating Income:", error.message);
+        ToastAndroid.show("Error creating Income", ToastAndroid.SHORT);
+        setLoading(false);
+        return;
+      }
+      if (data) {
+        console.log("Income Data:", data);
+        router.replace("/(tabs)");
+        setLoading(false);
+        ToastAndroid.show("Income Added!", ToastAndroid.SHORT);
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error.message);
+    }
   };
 
   const onDateChange = (event, selectedDate) => {
