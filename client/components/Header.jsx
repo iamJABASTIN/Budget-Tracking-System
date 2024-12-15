@@ -68,7 +68,7 @@ export default function Header() {
             {user?.displayName || "Jhon"}
           </Text>
         </View>
-        <Ionicons name="notifications" size={24} color={colors.WHITE1} />
+        {/* <Ionicons name="notifications" size={24} color={colors.WHITE1} /> */}
       </View>
     </View>
   );

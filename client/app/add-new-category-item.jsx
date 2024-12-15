@@ -46,47 +46,6 @@ export default function AddNewCategoryItem() {
     }
   };
 
-  // const onClickAdd = async () => {
-  //   const fileName = Date.now();
-  //   const { data: uploadData, error: uploadError } = await supabase.storage
-  //     .from("images")
-  //     .upload(fileName + ".png", decode(image), {
-  //       contentType: "image/png",
-  //     });
-
-  //   if (uploadData) {
-  //     const fileUrl =
-  //       "https://xxajwaqvwtixcnmlxn.supabase.co/storage/v1/object/public/images/"+fileName +".png";
-
-  //     const { data, error } = await supabase.from("categoryItems").insert([
-  //       {
-  //         name: name,
-  //         cost: cost,
-  //         url: URL,
-  //         image: fileUrl,
-  //         note: note,
-  //         category_id: categoryId,
-  //       },
-  //     ]).select();
-
-  //     if (!error) {
-  //       ToastAndroid.show("New Item Added!!", ToastAndroid.SHORT);
-  //       router.push({
-  //         pathname: "/category-details",
-  //         params: {
-  //           categoryId: categoryId,
-  //         },
-  //       });
-  //     } else {
-  //       console.error("Error adding item:", error.message);
-  //       ToastAndroid.show("Failed to add item!", ToastAndroid.SHORT);
-  //     }
-  //   } else {
-  //     console.error("Upload Error:", uploadError.message);
-  //     ToastAndroid.show("Failed to upload image!", ToastAndroid.SHORT);
-  //   }
-  // };
-
   const onClickAdd = async () => {
     setLoading(true);
     const fileName = Date.now();

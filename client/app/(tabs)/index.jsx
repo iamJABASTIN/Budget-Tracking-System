@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   },
   incomeExpenseContainer : {
     marginTop:30,
-    padding:5,
-    backgroundColor:"#FFF",
-    borderRadius:5
+    // padding:5,
+    // backgroundColor:"#FFF",
+    // borderRadius:5
   }
 });
