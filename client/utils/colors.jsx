@@ -6,6 +6,8 @@ export default {
   PRIMARY: "#5465FF",
   SECONDARY: "#9BB1FF",
   RED: '#FF4D4D',
+  LIGHT_RED:'#FFEDED',
   GREEN: '#4CAF50',
+  LIGHT_GREEN:'#E7FEEA',
   COLOR_LIST: ["#4575FE", "#13C38B", "#9F3CFE", "#9F3C3E", "#FF7D4F"],
 };

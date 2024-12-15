@@ -1,6 +1,8 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import colors from "../utils/colors";
+import ExpenseList from "./ExpenseList";
+import IncomeList from "./IncomeList";
 
 export default function IncomeExpenseList() {
   const [selectedForm, setSelectedForm] = useState("expense");
@@ -20,7 +22,7 @@ export default function IncomeExpenseList() {
           <Text style={styles.btnTxt}>Income</Text>
         </TouchableOpacity>
       </View>
-
+        {selectedForm==='expense'?<ExpenseList/>:<IncomeList/>}
     </View>
   );
 }
