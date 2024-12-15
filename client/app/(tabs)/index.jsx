@@ -6,6 +6,8 @@ import { Link, useRouter } from "expo-router";
 import Header from "../../components/Header";
 import MoneyStatus from "../../components/MoneyStatus";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import SummaryChart from "../../components/SummaryChart";
+import IncomeExpenseList from "../../components/IncomeExpenseList";
 
 export default function index() {
   const router = useRouter();
@@ -16,6 +18,10 @@ export default function index() {
       </SafeAreaView>
       <View style={styles.container}>
         <MoneyStatus />
+        {/* <SummaryChart/> */}
+        <View style={styles.incomeExpenseContainer}>
+          <IncomeExpenseList/>
+        </View>
         <Link href={"/add-income-expense"} style={styles.addBtnContainer}>
           <Ionicons name="add-circle-sharp" size={65} color={colors.PRIMARY} />
         </Link>
@@ -50,4 +56,10 @@ const styles = StyleSheet.create({
     right: 16,
     zIndex: 10,
   },
+  incomeExpenseContainer : {
+    marginTop:30,
+    padding:5,
+    backgroundColor:"#FFF",
+    borderRadius:5
+  }
 });

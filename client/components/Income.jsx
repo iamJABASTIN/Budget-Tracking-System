@@ -151,7 +151,7 @@ export default function Income() {
         {/* Add Button */}
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() => onClickAdd()}
+          onPress={() => onCreateCategory()}
           disabled={!name || !amount || !date || !category || loading}
         >
           {loading ? (

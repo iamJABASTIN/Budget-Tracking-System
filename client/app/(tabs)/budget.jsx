@@ -10,7 +10,6 @@ import services from "../../utils/services";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import CircularChart from "../../components/CircularChart.jsx";
-import Header from "../../components/Header";
 import CategoryList from "../../components/CategoryList.jsx";
 import { SafeAreaView } from "react-native-safe-area-context";
 
