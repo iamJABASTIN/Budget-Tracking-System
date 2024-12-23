@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../../utils/colors";
 import { supabase } from "../../utils/SupaBaseConfig";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 export default function CourseItemList({ categoryData, setUpdateRecord }) {
   const [expandItem, setExpandItem] = useState();
@@ -27,6 +28,8 @@ export default function CourseItemList({ categoryData, setUpdateRecord }) {
   const openURL = (url) => {
     if (url) {
       Linking.openURL(url);
+    } else {
+      ToastAndroid.show("No URL available for this item", ToastAndroid.SHORT);
     }
   };
   return (
@@ -46,9 +49,12 @@ export default function CourseItemList({ categoryData, setUpdateRecord }) {
                 ></Image>
                 <View style={{ flex: 1, marginLeft: 10 }}>
                   <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.url}>{item.url}</Text>
+                  {/* <Text style={styles.url}>{item.url}</Text> */}
                 </View>
-                <Text style={styles.cost}>$ {item.cost}</Text>
+                <Text style={styles.cost}>
+                  <FontAwesome name="rupee" size={15} color={colors.BLACK1} />{" "}
+                  {item.cost}
+                </Text>
               </TouchableOpacity>
               {expandItem == index && (
                 <View style={styles.actionItemContainer}>

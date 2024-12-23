@@ -11,6 +11,9 @@ import { Ionicons } from "@expo/vector-icons";
 import Colors from "./../../utils/colors";
 import { supabase } from "./../../utils/SupaBaseConfig";
 import { useRouter } from "expo-router";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import colors from "./../../utils/colors";
+
 export default function CourseInfo({ categoryData }) {
   const [totalCost, setTotalCost] = useState();
   const [percTotal, setPercTotal] = useState(0);
@@ -76,7 +79,10 @@ export default function CourseInfo({ categoryData }) {
       </View>
       {/* Progress Bar  */}
       <View style={styles.amountContainer}>
-        <Text style={{ fontFamily: "Montserrat-bold" }}>${totalCost}</Text>
+        <Text style={{ fontFamily: "Montserrat-bold" }}>
+          <FontAwesome name="rupee" size={12} color={colors.BLACK1} />
+          {totalCost}
+        </Text>
         <Text style={{ fontFamily: "Montserrat" }}>
           Total Budget:{categoryData.assign_budget}
         </Text>

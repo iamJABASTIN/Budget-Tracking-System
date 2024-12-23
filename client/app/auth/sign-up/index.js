@@ -5,13 +5,16 @@ import {
   StyleSheet,
   TouchableOpacity,
   ToastAndroid,
+  ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../../../configs/FirebaseConfig';
+import { auth } from "../../../configs/FirebaseConfig";
 import colors from "../../../utils/colors";
+import { StatusBar } from "expo-status-bar";
 
 export default function SignUp() {
   const navigation = useNavigation();
@@ -33,8 +36,8 @@ export default function SignUp() {
       return;
     }
 
-    if(!email.includes("@")) {
-      ToastAndroid.show("Please enter a valid email", ToastAndroid.BOTTOM)
+    if (!email.includes("@")) {
+      ToastAndroid.show("Please enter a valid email", ToastAndroid.BOTTOM);
     }
 
     createUserWithEmailAndPassword(auth, email, password)
@@ -53,129 +56,132 @@ export default function SignUp() {
   };
 
   return (
-    <View
-      style={{
-        padding: 25,
-        paddingTop: 40,
-        backgroundColor: colors.WHITE1,
-        height: "100%",
-      }}
-    >
-      <TouchableOpacity onPress={() => router.back()}>
-        <Ionicons name="arrow-back" size={24} color="black" />
-      </TouchableOpacity>
-      <Text
+    <KeyboardAvoidingView>
+      <StatusBar style="auto" />
+      <ScrollView
         style={{
-          fontFamily: "Montserrat-bold",
-          fontSize: 30,
-          marginTop: 30,
-        }}
-      >
-        Create New Account
-      </Text>
-
-      {/* User Full Name */}
-      <View
-        style={{
-          marginTop: 50,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Montserrat",
-          }}
-        >
-          Full Name
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter Full Name"
-          onChangeText={(value) => setFullName(value)}
-        />
-      </View>
-
-      {/* Email */}
-      <View
-        style={{
-          marginTop: 20,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Montserrat",
-          }}
-        >
-          Email
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter Email"
-          onChangeText={(value) => setEmail(value)}
-        />
-      </View>
-
-      {/* Password */}
-      <View
-        style={{
-          marginTop: 20,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Montserrat",
-          }}
-        >
-          Password
-        </Text>
-        <TextInput
-          secureTextEntry={true}
-          style={styles.input}
-          placeholder="Enter Password"
-          onChangeText={(value) => setPassword(value)}
-        />
-      </View>
-
-      {/* Create Account Button */}
-      <TouchableOpacity
-        onPress={createAccount}
-        style={{
-          padding: 20,
-          backgroundColor: colors.PRIMARY,
-          borderRadius: 15,
-          marginTop: 50,
-        }}
-      >
-        <Text
-          style={{
-            color: colors.WHITE1,
-            textAlign: "center",
-          }}
-        >
-          Create Account
-        </Text>
-      </TouchableOpacity>
-
-      {/* Sign In Button */}
-      <TouchableOpacity
-        onPress={() => router.replace("auth/sign-in")}
-        style={{
-          padding: 20,
+          padding: 25,
+          paddingTop: 40,
           backgroundColor: colors.WHITE1,
-          borderRadius: 15,
-          marginTop: 20,
-          borderWidth: 1,
+          height: "100%",
         }}
       >
+        <TouchableOpacity onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
         <Text
           style={{
-            color: colors.PRIMARY,
-            textAlign: "center",
+            fontFamily: "Montserrat-bold",
+            fontSize: 30,
+            marginTop: 30,
           }}
         >
-          Sign In
+          Create New Account
         </Text>
-      </TouchableOpacity>
-    </View>
+
+        {/* User Full Name */}
+        <View
+          style={{
+            marginTop: 50,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Montserrat",
+            }}
+          >
+            Full Name
+          </Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Full Name"
+            onChangeText={(value) => setFullName(value)}
+          />
+        </View>
+
+        {/* Email */}
+        <View
+          style={{
+            marginTop: 20,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Montserrat",
+            }}
+          >
+            Email
+          </Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Email"
+            onChangeText={(value) => setEmail(value)}
+          />
+        </View>
+
+        {/* Password */}
+        <View
+          style={{
+            marginTop: 20,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Montserrat",
+            }}
+          >
+            Password
+          </Text>
+          <TextInput
+            secureTextEntry={true}
+            style={styles.input}
+            placeholder="Enter Password"
+            onChangeText={(value) => setPassword(value)}
+          />
+        </View>
+
+        {/* Create Account Button */}
+        <TouchableOpacity
+          onPress={createAccount}
+          style={{
+            padding: 20,
+            backgroundColor: colors.PRIMARY,
+            borderRadius: 15,
+            marginTop: 50,
+          }}
+        >
+          <Text
+            style={{
+              color: colors.WHITE1,
+              textAlign: "center",
+            }}
+          >
+            Create Account
+          </Text>
+        </TouchableOpacity>
+
+        {/* Sign In Button */}
+        <TouchableOpacity
+          onPress={() => router.replace("auth/sign-in")}
+          style={{
+            padding: 20,
+            backgroundColor: colors.WHITE1,
+            borderRadius: 15,
+            marginTop: 20,
+            borderWidth: 1,
+          }}
+        >
+          <Text
+            style={{
+              color: colors.PRIMARY,
+              textAlign: "center",
+            }}
+          >
+            Sign In
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+      </KeyboardAvoidingView>
   );
 }
 

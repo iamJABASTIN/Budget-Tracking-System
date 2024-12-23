@@ -32,6 +32,14 @@ export default function Expense() {
 
   const onCreateCategory = async () => {
     setLoading(true);
+
+      // Validate if the amount is a positive number
+  if (parseFloat(amount) <= 0 || isNaN(parseFloat(amount))) {
+    ToastAndroid.show("Amount must be a positive number", ToastAndroid.SHORT);
+    setLoading(false);
+    return;
+  }
+  
     try {
       const user = auth.currentUser;
       if (!user || !user.email) {

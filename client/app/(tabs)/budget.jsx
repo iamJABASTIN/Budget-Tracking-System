@@ -1,4 +1,10 @@
-import { StyleSheet, View, ScrollView, RefreshControl } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  RefreshControl,
+  FlatList,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "./../../configs/FirebaseConfig.jsx";
@@ -20,7 +26,7 @@ export default function Home() {
   useEffect(() => {
     checkUserAuth();
     getCategoryList();
-  },[]);
+  }, []);
 
   const checkUserAuth = async () => {
     const result = await services.getData("login");

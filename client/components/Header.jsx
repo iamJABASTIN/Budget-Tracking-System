@@ -1,20 +1,35 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { auth } from "./../configs/FirebaseConfig";
+import { supabase } from "../utils/SupaBaseConfig";
 import React, { useEffect, useState } from "react";
 import colors from "../utils/colors";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 
-export default function Header() {
-  const [user, setUser] = useState(null);
+export default function Header({ refreshing }) {
+  const [firebaseUser, setFirebaseUser] = useState(null); // Firebase user data
+  const [userData, setUserData] = useState(null); // Supabase user data
   const router = useRouter();
+
   useEffect(() => {
     const fetchUserData = async () => {
       const currentUser = auth.currentUser;
-      setUser(currentUser);
+      setFirebaseUser(currentUser);
+
+      if (currentUser && currentUser.email) {
+        // Fetch user data from Supabase
+        const { data, error } = await supabase
+          .from("user")
+          .select("*")
+          .eq("email", currentUser.email)
+          .single();
+
+        if (data) setUserData(data);
+        if (error) console.error("Error fetching user data:", error);
+      }
     };
+
     fetchUserData();
-  }, []);
+  }, [refreshing]);
 
   return (
     <View
@@ -25,12 +40,12 @@ export default function Header() {
         alignItems: "center",
       }}
     >
-      {user ? (
+      {firebaseUser ? (
         <TouchableOpacity onPress={() => router.replace("/(tabs)/profile")}>
           <Image
             source={{
               uri:
-                user?.photoURL ||
+                firebaseUser?.photoURL ||
                 "https://cdn.vectorstock.com/i/preview-1x/15/32/colorful-profile-picture-placeholder-icon-vector-42411532.jpg",
             }}
             style={styles.image}
@@ -65,7 +80,7 @@ export default function Header() {
               fontFamily: "Montserrat-bold",
             }}
           >
-            {user?.displayName || "Jhon"}
+            {userData?.name || "User"}
           </Text>
         </View>
         {/* <Ionicons name="notifications" size={24} color={colors.WHITE1} /> */}

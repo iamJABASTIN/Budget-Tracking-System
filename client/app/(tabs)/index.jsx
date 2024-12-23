@@ -1,39 +1,67 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
+import React, { useState } from "react";
 import colors from "../../utils/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, useRouter } from "expo-router";
 import Header from "../../components/Header";
 import MoneyStatus from "../../components/MoneyStatus";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import SummaryChart from "../../components/SummaryChart";
 import IncomeExpenseList from "../../components/IncomeExpenseList";
 
-export default function index() {
+export default function Index() {
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshTrigger, setRefreshTrigger] = useState(0); // Tracks delete or update events
   const router = useRouter();
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setRefreshTrigger((prev) => prev + 1); // Increment to trigger data refresh
+    setRefreshing(false); // End refreshing state
+  };
+
+  const handleDelete = () => {
+    setRefreshTrigger((prev) => prev + 1); // Trigger refresh after delete
+  };
+
   return (
     <View style={styles.screen}>
       <SafeAreaView style={styles.safeArea}>
-        <Header />
+        <Header refreshing={refreshTrigger} />
       </SafeAreaView>
-      <View style={styles.container}>
-        <MoneyStatus />
-        {/* <SummaryChart/> */}
-        <View style={styles.incomeExpenseContainer}>
-          <IncomeExpenseList/>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
+        <View style={styles.container}>
+          <MoneyStatus refreshing={refreshTrigger} />
+          <View style={styles.incomeExpenseContainer}>
+            <IncomeExpenseList onDelete={handleDelete} />
+          </View>
+          <Link href={"/add-income-expense"} style={styles.addBtnContainer}>
+            <Ionicons
+              name="add-circle-sharp"
+              size={65}
+              color={colors.PRIMARY}
+            />
+          </Link>
         </View>
-        <Link href={"/add-income-expense"} style={styles.addBtnContainer}>
-          <Ionicons name="add-circle-sharp" size={65} color={colors.PRIMARY} />
-        </Link>
-      </View>
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1, // Ensures the root container takes up full screen height
-    backgroundColor: colors.WHITE1, // Full-screen white background
+    flex: 1,
+    backgroundColor: colors.WHITE1,
   },
   safeArea: {
     paddingHorizontal: 20,
@@ -41,25 +69,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.PRIMARY,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
-    zIndex: 1,
   },
   container: {
-    flex: 1, // Ensures the container fills remaining space after SafeAreaView
+    flex: 1,
     padding: 20,
-    backgroundColor: colors.WHITE1, // Explicit white background
-    borderTopLeftRadius: 25, // Optional: Match radius for visual consistency
-    borderTopRightRadius: 25, // Optional: Match radius for visual consistency
+    backgroundColor: colors.WHITE1,
   },
   addBtnContainer: {
     position: "absolute",
     bottom: 16,
     right: 16,
-    zIndex: 10,
   },
-  incomeExpenseContainer : {
-    marginTop:30,
-    // padding:5,
-    // backgroundColor:"#FFF",
-    // borderRadius:5
-  }
+  incomeExpenseContainer: {
+    marginTop: 30,
+  },
 });

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import colors from "../utils/colors";
 import PieChart from "react-native-pie-chart";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 export default function CircularChart({ categoryList = [] }) {
   const widthAndHeight = 150;
@@ -70,7 +71,7 @@ export default function CircularChart({ categoryList = [] }) {
       <Text style={styles.totalEstimate}>
         Total Estimate:{" "}
         <Text style={styles.boldText}>
-          ${totalCalculatedEstimate.toFixed(2)}
+          <FontAwesome name="rupee" size={18} color={colors.BLACK1} /> {totalCalculatedEstimate.toFixed(2)}
         </Text>
       </Text>
       <View style={styles.subContainer}>
@@ -100,7 +101,9 @@ export default function CircularChart({ categoryList = [] }) {
                     size={24}
                     color={colors.COLOR_LIST[index]}
                   />
-                  <Text>{category.name}</Text>
+                  <Text style={styles.categoryText} numberOfLines={1}>
+                    {category.name}
+                  </Text>
                 </View>
               ) : null
             )}
@@ -111,7 +114,9 @@ export default function CircularChart({ categoryList = [] }) {
                   size={24}
                   color={colors.COLOR_LIST[4]}
                 />
-                <Text>Others</Text>
+                <Text style={styles.categoryText} numberOfLines={1}>
+                  Others
+                </Text>
               </View>
             )}
           </View>
@@ -148,5 +153,13 @@ const styles = StyleSheet.create({
   },
   boldText: {
     fontFamily: "Montserrat-bold",
+  },
+  categoryText: {
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    width: 100, // Limit the width of category text
+    overflow: "hidden", // Prevent overflow
+    textOverflow: "ellipsis", // Add ellipsis for overflow text
+    whiteSpace: "nowrap", // Prevent text from wrapping
   },
 });

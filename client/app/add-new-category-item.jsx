@@ -48,6 +48,12 @@ export default function AddNewCategoryItem() {
 
   const onClickAdd = async () => {
     setLoading(true);
+    // Validate if the amount is a positive number
+    if (parseFloat(cost) <= 0 || isNaN(parseFloat(cost))) {
+      ToastAndroid.show("Amount must be a positive number", ToastAndroid.SHORT);
+      setLoading(false);
+      return;
+    }
     const fileName = Date.now();
     // Remove base64 prefix if present
     const base64Image = image.startsWith("data:image/")
@@ -107,6 +113,8 @@ export default function AddNewCategoryItem() {
             placeholder="Item name"
             style={styles.input}
             onChangeText={(value) => setName(value)}
+            multiline={true}
+            numberOfLines={3}
           />
         </View>
         <View style={styles.textInputContainer}>
@@ -124,6 +132,8 @@ export default function AddNewCategoryItem() {
             placeholder="URL"
             style={styles.input}
             onChangeText={(value) => setURL(value)}
+            multiline={true}
+            numberOfLines={3}
           />
         </View>
         <View style={styles.textInputContainer}>
@@ -132,6 +142,8 @@ export default function AddNewCategoryItem() {
             placeholder="Note"
             style={styles.input}
             onChangeText={(value) => setNote(value)}
+            multiline={true}
+            numberOfLines={3}
           />
         </View>
         <TouchableOpacity
@@ -174,9 +186,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   input: {
+    width: "85%", // Adjust the width to ensure text fits well
     fontSize: 17,
-    fontFamily: "Montserrat-medium",
-    width: "100%",
+    color: colors.BLACK1,
+    paddingHorizontal: 10,
+    paddingVertical: 10, // Prevent text from overflowing vertically
+    textAlign: "left", // Ensure text aligns to the left
   },
   addButton: {
     backgroundColor: colors.PRIMARY,

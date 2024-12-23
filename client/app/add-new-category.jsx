@@ -26,6 +26,13 @@ export default function addNewCategory() {
 
   const onCreateCategory = async () => {
     setLoading(true);
+
+    // Validate if the amount is a positive number
+    if (parseFloat(totalBudget) <= 0 || isNaN(parseFloat(totalBudget))) {
+      ToastAndroid.show("Amount must be a positive number", ToastAndroid.SHORT);
+      setLoading(false);
+      return;
+    }
     try {
       const user = auth.currentUser;
       if (!user || !user.email) {
@@ -53,7 +60,7 @@ export default function addNewCategory() {
       if (error) {
         console.error("Error creating category:", error.message);
         ToastAndroid.show("Error creating category", ToastAndroid.SHORT);
-        setLoading(fasle);
+        setLoading(false);
         return;
       }
       if (data) {
@@ -87,7 +94,10 @@ export default function addNewCategory() {
         }}
       >
         <TextInput
-          style={[styles.iconInput, { backgroundColor: selectedColor }]}
+          style={[
+            styles.iconInput,
+            { backgroundColor: selectedColor, textAlign: "center" },
+          ]}
           maxLength={2}
           onChangeText={(value) => {
             setSelectedIcon(value);
@@ -110,10 +120,9 @@ export default function addNewCategory() {
         <TextInput
           placeholder="Category Name"
           onChangeText={(value) => setCategoryName(value)}
-          style={{
-            width: "100%",
-            fontSize: 17,
-          }}
+          style={styles.inputText}
+          multiline={true}
+          numberOfLines={3}
         />
       </View>
 
@@ -123,10 +132,7 @@ export default function addNewCategory() {
           placeholder="Total Budget"
           onChangeText={(value) => setTotalBudget(value)}
           keyboardType="numeric"
-          style={{
-            width: "100%",
-            fontSize: 17,
-          }}
+          style={styles.inputText}
         />
       </View>
 
@@ -165,6 +171,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.WHITE1,
     alignItems: "center",
     marginTop: 20,
+  },
+  inputText: {
+    width: "85%", // Adjust the width to ensure text fits well
+    fontSize: 17,
+    color: colors.BLACK1,
+    paddingHorizontal: 10,
+    paddingVertical: 10, // Prevent text from overflowing vertically
+    textAlign: "left", // Ensure text aligns to the left
   },
   btn: {
     backgroundColor: colors.PRIMARY,

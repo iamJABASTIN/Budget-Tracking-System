@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import React, { useState } from "react";
 import colors from "../utils/colors";
 import ExpenseList from "./ExpenseList";
@@ -22,7 +22,12 @@ export default function IncomeExpenseList() {
           <Text style={styles.btnTxt}>Income</Text>
         </TouchableOpacity>
       </View>
+      <ScrollView 
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.scrollContent}
+      >
         {selectedForm==='expense'?<ExpenseList/>:<IncomeList/>}
+      </ScrollView>
     </View>
   );
 }
@@ -33,6 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingBottom:20,
     gap: 20,
   },
   incomeBtn: {
@@ -55,4 +61,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.WHITE1,
   },
+  scrollView: {
+    flex: 1, // Ensures the ScrollView takes the remaining height
+  },
+  scrollContent: {
+    paddingBottom: 100, // Adds extra space at the bottom to avoid being cut off
+  }
 });

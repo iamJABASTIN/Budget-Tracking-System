@@ -1,30 +1,38 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
-import loginBG from './../assets/images/illu_removedBG-min.png';
+import loginBG from "./../assets/images/illu_removedBG-min.png";
 import colors from "./../utils/colors";
 import { useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 
 export default function Login() {
   const router = useRouter();
   return (
-    <View
-      style={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <Image source={loginBG} style={styles.illustrator} />
+    <>
+      <StatusBar style="auto" />
+      <SafeAreaView
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Image source={loginBG} style={styles.illustrator} />
 
-      <View style={styles.background}>
-        <Text style={styles.textHeading}>Personal Budget Planner</Text>
-        <Text style={styles.textSubHeading}>
-          Every Expense Counts, Every Savings Matter.
-        </Text>
-        <TouchableOpacity style={styles.button} onPress={()=> router.push('auth/sign-in')}>
-          <Text style={styles.btnText}>Get Started</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+        <View style={styles.background}>
+          <Text style={styles.textHeading}>Personal Budget Planner</Text>
+          <Text style={styles.textSubHeading}>
+            Every Expense Counts, Every Savings Matter.
+          </Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.push("auth/sign-in")}
+          >
+            <Text style={styles.btnText}>Get Started</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </>
   );
 }
 
@@ -47,14 +55,14 @@ const styles = StyleSheet.create({
   },
   textHeading: {
     fontSize: 35,
-    fontFamily:'Montserrat-bold',
+    fontFamily: "Montserrat-bold",
     textAlign: "center",
     color: colors.WHITE1,
   },
   textSubHeading: {
     fontSize: 16,
-    paddingInline:'20',
-    fontFamily:'Montserrat',
+    paddingInline: "20",
+    fontFamily: "Montserrat",
     color: colors.WHITE1,
     textAlign: "center",
     marginTop: 20,
@@ -73,7 +81,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     textAlign: "center",
-    fontFamily:'Montserrat',
+    fontFamily: "Montserrat",
     fontWeight: 600,
     fontSize: 15,
     color: colors.PRIMARY,
