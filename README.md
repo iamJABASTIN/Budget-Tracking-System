@@ -16,43 +16,43 @@ The **Budget Tracking System** is a user-friendly mobile application designed to
 
 ## Screenshots  
 ### 1. Welcome Screen  
-![Welcome Screen](./client/assets/App%20Snapshots/ss2.jpg) 
+<img src="./client/assets/App%20Snapshots/ss2.jpg" alt="Welcome Screen" width="400" />
 
 ### 2. Sign In page  
-![Sign In Screen](./client/assets/App%20Snapshots/ss4.jpg) 
+<img src="./client/assets/App%20Snapshots/ss4.jpg" alt="Sign In Screen" width="400" />
 
 ### 3. Login Screen  
-![Login Screen](./client/assets/App%20Snapshots/ss3.jpg) 
+<img src="./client/assets/App%20Snapshots/ss3.jpg" alt="Login Screen" width="400" />
 
-### 4. Home Screen(Expense)
-![Home Screen](./client/assets/App%20Snapshots/ss5.jpg) 
+### 4. Home Screen (Expense)  
+<img src="./client/assets/App%20Snapshots/ss5.jpg" alt="Home Screen" width="400" />
 
-### 5. Add Expense
-![Add Expense](./client/assets/App%20Snapshots/ss10.jpg) 
+### 5. Add Expense  
+<img src="./client/assets/App%20Snapshots/ss10.jpg" alt="Add Expense" width="400" />
 
-### 6. Home Screen(Income)
-![Home Screen](./client/assets/App%20Snapshots/ss6.jpg) 
+### 6. Home Screen (Income)  
+<img src="./client/assets/App%20Snapshots/ss6.jpg" alt="Home Screen" width="400" />
 
-### 7. Add Income
-![Add Income](./client/assets/App%20Snapshots/ss9.jpg) 
+### 7. Add Income  
+<img src="./client/assets/App%20Snapshots/ss9.jpg" alt="Add Income" width="400" />
 
 ### 8. Budget Section  
-![Budget Section](./client/assets/App%20Snapshots/ss1.jpg) 
+<img src="./client/assets/App%20Snapshots/ss1.jpg" alt="Budget Section" width="400" />
 
 ### 9. Create Budget  
-![Create Budget](./client/assets/App%20Snapshots/ss12.jpg) 
+<img src="./client/assets/App%20Snapshots/ss12.jpg" alt="Create Budget" width="400" />
 
-### 10. Created Budget   
-![Created Budget ](./client/assets/App%20Snapshots/ss.jpg) 
+### 10. Created Budget  
+<img src="./client/assets/App%20Snapshots/ss.jpg" alt="Created Budget" width="400" />
 
 ### 11. Create Sub-Items  
-![Create Sub-Items](./client/assets/App%20Snapshots/ss11.jpg) 
+<img src="./client/assets/App%20Snapshots/ss11.jpg" alt="Create Sub-Items" width="400" />
 
 ### 12. Profile Section  
-![Profile Section](./client/assets/App%20Snapshots/ss8.jpg) 
+<img src="./client/assets/App%20Snapshots/ss8.jpg" alt="Profile Section" width="400" />
 
 ### 13. Edit Profile Details  
-![Edit Profile Details](./client/assets/App%20Snapshots/ss3.jpg) 
+<img src="./client/assets/App%20Snapshots/ss3.jpg" alt="Edit Profile Details" width="400" />
 
 ---
 
