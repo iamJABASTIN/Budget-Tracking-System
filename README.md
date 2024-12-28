@@ -16,43 +16,43 @@ The **Budget Tracking System** is a user-friendly mobile application designed to
 
 ## Screenshots  
 ### 1. Welcome Screen  
-![Welcome Screen](./client/assets/App Snapshots/ss2.jpg) 
+![Welcome Screen](./client/assets/App%20Snapshots/ss2.jpg) 
 
 ### 2. Sign In page  
-![Sign In Screen](./client/assets/App Snapshots/ss4.jpg) 
+![Sign In Screen](./client/assets/App%20Snapshots/ss4.jpg) 
 
 ### 3. Login Screen  
-![Login Screen](./client/assets/App Snapshots/ss3.jpg) 
+![Login Screen](./client/assets/App%20Snapshots/ss3.jpg) 
 
 ### 4. Home Screen(Expense)
-![Home Screen](./client/assets/App Snapshots/ss5.jpg) 
+![Home Screen](./client/assets/App%20Snapshots/ss5.jpg) 
 
 ### 5. Add Expense
-![Add Expense](./client/assets/App Snapshots/ss10.jpg) 
+![Add Expense](./client/assets/App%20Snapshots/ss10.jpg) 
 
 ### 6. Home Screen(Income)
-![Home Screen](./client/assets/App Snapshots/ss6.jpg) 
+![Home Screen](./client/assets/App%20Snapshots/ss6.jpg) 
 
 ### 7. Add Income
-![Add Income](./client/assets/App Snapshots/ss9.jpg) 
+![Add Income](./client/assets/App%20Snapshots/ss9.jpg) 
 
 ### 8. Budget Section  
-![Budget Section](./client/assets/App Snapshots/ss1.jpg) 
+![Budget Section](./client/assets/App%20Snapshots/ss1.jpg) 
 
 ### 9. Create Budget  
-![Create Budget](./client/assets/App Snapshots/ss12.jpg) 
+![Create Budget](./client/assets/App%20Snapshots/ss12.jpg) 
 
 ### 10. Created Budget   
-![Created Budget ](./client/assets/App Snapshots/ss.jpg) 
+![Created Budget ](./client/assets/App%20Snapshots/ss.jpg) 
 
 ### 11. Create Sub-Items  
-![Create Sub-Items](./client/assets/App Snapshots/ss11.jpg) 
+![Create Sub-Items](./client/assets/App%20Snapshots/ss11.jpg) 
 
 ### 12. Profile Section  
-![Profile Section](./client/assets/App Snapshots/ss8.jpg) 
+![Profile Section](./client/assets/App%20Snapshots/ss8.jpg) 
 
 ### 13. Edit Profile Details  
-![Edit Profile Details](./client/assets/App Snapshots/ss3.jpg) 
+![Edit Profile Details](./client/assets/App%20Snapshots/ss3.jpg) 
 
 ---
 
